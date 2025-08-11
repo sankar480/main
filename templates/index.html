@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>SN Profile</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+
+  <!-- NAV BAR -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#">
+        <div class="logo">SN</div>
+        <div>
+          <h1>Sankara Narayanan</h1>
+          <p>Software Engineer</p>
+        </div>
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="{{ url_for('blog') }}" class="active">Blog</a>
+        <a class='cta'href="#contact">Contact</a>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle navigation">
+        ☰
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu" hidden>
+      <a href="#home">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="{{ url_for('blog') }}" class="active">Blog</a>
+      <a class="cta" href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <h1>Hi, I’m Sankara Narayanan</h1>
+    <p>Machine Learning Engineer passionate about building smart, fast, and reliable applications that solve real-world problems.</p>
+    <a href="#projects" class="cta-btn">See My Work</a>
+  </section>
+
+  <!-- FEATURES/ABOUT -->
+  <section>
+    <h2>What I Do</h2>
+    <div class="features">
+      <div class="feature">
+        <h3>Web Development</h3>
+        <p>Building fast, responsive, and user-friendly websites using modern tech stacks.</p>
+      </div>
+      <div class="feature">
+        <h3>Machine Learning</h3>
+        <p>Creating models that understand, predict, and enhance user experiences.</p>
+      </div>
+      <div class="feature">
+        <h3>Cloud Integration</h3>
+        <p>Deploying scalable, secure solutions that work seamlessly in the cloud.</p>
+      </div>
+    </div>
+  </section>
+  <button id="scrollTopBtn" title="Go to top">↑</button>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2>Projects</h2>
+  <p>Here are some of my recent GitHub repositories:</p>
+  <div class="features">
+    {% for project in projects %}
+      <div class="feature">
+        <h3>{{ project.title }}</h3>
+        <p>{{ project.description }}</p>
+        <a href="{{ project.github_url }}" target="_blank">View on GitHub</a>
+      </div>
+    {% else %}
+      <p>No projects found.</p>
+    {% endfor %}
+  </div>
+</section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p>Email: <a href="mailto:your@email.com">narayanansankar480@gmail.com</a></p>
+    <p>LinkedIn: <a href="https://www.linkedin.com/in/sankar-narayanan480/">linkedin.com</a></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 Sankara Narayanan. All rights reserved.
+  </footer>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+  
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('show');
+    });
+
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+window.onscroll = function() {
+  if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+    scrollTopBtn.style.display = "block";
+  } else {
+    scrollTopBtn.style.display = "none";
+  }
+};
+
+scrollTopBtn.addEventListener("click", function() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+  </script>
+  
+  
+</body>
+</html>
