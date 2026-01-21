@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect,url_for
+from flask import Flask, render_template, request, redirect, url_for
 from supabase import create_client, Client
 import os
 from dotenv import load_dotenv
@@ -16,9 +16,8 @@ if not url or not key:
 
 supabase: Client = create_client(url, key)
 
-@app.route('/', endpoint='home')
+@app.route('/')
 def index():
-        # Fetch all projects
     response = supabase.table("projects").select("*").execute()
     return render_template('index.html', projects=response.data)
 
@@ -27,15 +26,9 @@ def blog():
     response = supabase.table("blogs").select("*").execute()
     return render_template('blog.html', posts=response.data)
 
-# @app.route('/projects')
-# def projects():
-#     # Fetch all projects
-#     response = supabase.table("projects").select("*").execute()
-#     return render_template('index.html', projects=response.data)
-
-# @app.route('/add_project', methods=['GET', 'POST'])
+@app.route('/add_project', methods=['GET', 'POST'])
 def add_project():
-    if request.method == 'POST':    
+    if request.method == 'POST':
         title = request.form.get('title')
         description = request.form.get('description')
         github_url = request.form.get('github_url')
@@ -49,10 +42,9 @@ def add_project():
             "github_url": github_url
         }).execute()
 
-        return redirect('/projects')  # Change as needed
+        return redirect(url_for('index'))
 
     return render_template('add_project.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
